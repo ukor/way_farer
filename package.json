@@ -1,0 +1,42 @@
+{
+  "name": "way_farer",
+  "version": "0.0.1",
+  "description": "Bus transportation booking server",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "Andela",
+    "Transportation",
+    "ukor.dev"
+  ],
+  "author": "Ukor Jidechi Ekundayo",
+  "license": "ISC",
+  "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
+    "bcrypt": "^3.0.6",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "helmet": "^3.18.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.11",
+    "pg": "^7.11.0",
+    "shortid": "^2.2.14",
+    "validate.js": "^0.13.1",
+    "validator": "^11.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "supertest": "^4.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ukor/way_farer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ukor/way_farer/issues"
+  },
+  "homepage": "https://github.com/ukor/way_farer#readme"
+}
