@@ -7,7 +7,7 @@
 	"description": "Bus transportation booking server",
 	"main": "app.js",
 	"scripts": {
-		"test": "mocha",
+		"test": "mocha --config ./mocharc.js",
 		"dev": "nodemon ./bin/www/server.js"
 	},
 	"keywords": [
