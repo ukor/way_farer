@@ -1,5 +1,4 @@
 'use strict';
-const mongoErrorContextSymbol = Symbol('mongoErrorContextSymbol');
 /**
  * Creates a new WayFarer Error
  *
@@ -25,7 +24,6 @@ class WayFarerError extends Error {
 			Error.captureStackTrace(this, this.constructor);
 		}
 		this.name = 'MongoError';
-		this[mongoErrorContextSymbol] = this[mongoErrorContextSymbol] || {};
 	}
 }
 
