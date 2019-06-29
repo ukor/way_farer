@@ -7,7 +7,8 @@
 	"description": "Bus transportation booking server",
 	"main": "app.js",
 	"scripts": {
-		"test": "mocha"
+		"test": "mocha",
+		"dev": "nodemon ./bin/www/server.js"
 	},
 	"keywords": [
 		"Andela",
@@ -35,6 +36,7 @@
 		"eslint-config-airbnb-base": "^13.1.0",
 		"eslint-plugin-import": "^2.18.0",
 		"mocha": "^6.1.4",
+		"nodemon": "^1.19.1",
 		"supertest": "^4.0.2"
 	},
 	"repository": {
