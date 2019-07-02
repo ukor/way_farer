@@ -6,8 +6,18 @@ env:
   - NODE_ENV=test
 install:
   - npm install
+before_script:
+  - psql -c "CREATE DATABASE testPG;" -U postgres
 script:
   npm run test
+env:
+  global:
+    - PGhost='127.0.0.1'
+    - PGpassword=''
+    - PGport='5432'
+    - PGuser='postgres'
+    - PGdatabaseName='testPG'
+
 deploy:
   provider: heroku
   api_key:
