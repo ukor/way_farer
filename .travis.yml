@@ -23,6 +23,8 @@ after_success:
 deploy:
   provider: heroku
   app: way-farer
+  script:
+    - npm run document
   on:
     branch: master
   api_key:
