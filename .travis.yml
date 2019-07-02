@@ -10,7 +10,7 @@ script:
   - npm run test
   - npm run coverage
 after_success:
-  - coveralls
+  - npm run coverage
 deploy:
   provider: heroku
   app: way-farer
