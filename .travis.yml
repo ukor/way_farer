@@ -3,22 +3,27 @@ language: node_js
 node_js:
   - "10"
 env:
-  - NODE_ENV=test
+  global:
+    - NODE_ENV=test
+    - PGhost='127.0.0.1'
+    - PGpassword=''
+    - PGport='5432'
+    - PGuser='postgres'
+    - PGdatabaseName='testPG'
 install:
   - npm install
 before_script:
   - psql -c "CREATE DATABASE testPG;" -U postgres
 script:
   npm run test
-env:
-  global:
-    - PGhost='127.0.0.1'
-    - PGpassword=''
-    - PGport='5432'
-    - PGuser='postgres'
-    - PGdatabaseName='testPG'
-
+  - npm run test
+  - npm run coverage
+after_success:
+  - npm run coverage
 deploy:
   provider: heroku
+  app: way-farer
+  on:
+    branch: master
   api_key:
     secure: "Xq6RJFjzSb+S1fX1BIb/zrIEigZ9uDr3NxKUFO8vhUBMhjJX8B+bhwebH7x3HXXNfmk/vs+UFyVGYvbkRcZleqyXcu65WE4+Y91eXYWroex7etCg3kgQi5uI0Hl3cpUj3EZZ62sJBKwoOmbef11+wrl/Id5PRlwBrZ9rou9km1vOm0gmYG8yViu7CDz8pdBnFGDEIRSUnjUB3NIE1mCyfnh2yUpE3PD5e2MqieWeIllxUAhfvjqlhb+MAgNThEgZ9Plg41PnsPiEfE3GhRbkjrr7pkEMYpTSxZ6Sti7D4wvbmcsbcZeTP/FetyaskAW96q1GBAuALMs1Kv4kNogzZLE23ogOfQZQLAHQ4zSEh7K9FkfEBbDjyC2Ma91uxY2Z1jIYDGXkm85WmSW01pYX1Tau2OcThnGWDC+5DBXPtc/O2Keuy+RSDkp83+SkP9oSTyjAhc9yNWXn+fkkCN80SmfX2Oq1cR788QHDcp8AaXurYjz759EoIeuPqr69mjImNz3c061V+74iJDc/MfmAAs2s8KC9PMrbLPJ3APBdVDtisEeTG/zU0F4Xg6lPHhJxy343VECxauB9ILkrpJV5EK1NuWbO3DalAfI00FJ2uO/rD3syr36Az95V5cJZblqKt+1AEkjs4ObqssPINM7GBpmY8POLcaBa79BYfxAxxn8="
