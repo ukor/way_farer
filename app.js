@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const databaseTables = require('./server/models/installDatabaseTable.js');
+const routes = require('./server/routes/index.js');
 
 const { Pool } = require('pg');
 const { env } = process;
@@ -33,8 +34,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get('/', async (request, response) => {
-
 	response.sendStatus(200);
 });
+
+routes(app);
 
 module.exports = app;
