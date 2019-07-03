@@ -5,7 +5,7 @@ const wayFarerError = require('../server/errorHandles/wayFarerError');
 function testFunction() {
 	throw new wayFarerError('testError', 'error name');
 }
-// pass
+
 function testFunction2() {
 	throw new wayFarerError(['testError', 'custom error'], 'error name');
 }
