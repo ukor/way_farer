@@ -8,22 +8,18 @@
  * @property {string} stack The error call stack
  */
 class WayFarerError extends Error {
-	constructor(message) {
-		if (message instanceof Error) {
-			super(message.message);
-			this.stack = message.stack;
+	constructor(exception, name) {
+		if (exception instanceof Error) {
+			super(exception.message);
+			this.message = exception.message
+			this.name = message.name;
 		} else {
-			if (typeof message === 'string') {
-				super(message);
-			} else {
-				super(message.message || message.errmsg || message.$err || 'n/a');
-				for (var name in message) {
-					this[name] = message[name];
-				}
-			}
-			Error.captureStackTrace(this, this.constructor);
+			/** Either array or string */
+			super(exception);
+			this.message = exception;
+			this.name = name;
 		}
-		this.name = 'MongoError';
+		this.stack = (new Error).stack;
 	}
 }
 
