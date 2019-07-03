@@ -16,15 +16,11 @@ before_script:
   - psql -c "CREATE DATABASE testPG;" -U postgres
 script:
   npm run test
-  - npm run test
-  - npm run coverage
 after_success:
   - npm run coverage
 deploy:
   provider: heroku
   app: way-farer
-  script:
-    - npm run document
   on:
     branch: master
   api_key:
