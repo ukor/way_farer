@@ -10,17 +10,17 @@ function testFunction2() {
 	throw new wayFarerError(['testError', 'custom error'], 'error name');
 }
 
-describe('Custom Error', function() {
-	describe('Pass string as exception', function() {
-		it('Expect an error to be thrown', function() {
+suite('Custom Error', function() {
+	suite('Pass string as exception', function() {
+		test('Expect an error to be thrown', function() {
 			expect(function() {
 				testFunction();
 			}).to.throw('testError');
 		});
 	});
 
-	describe('Pass array as exception', function() {
-		it('Expect an error to be thrown', function() {
+	suite('Pass array as exception', function() {
+		test('Expect an error to be thrown', function() {
 			expect(function() {
 				testFunction2();
 			}).to.throw('testError');
