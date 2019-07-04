@@ -9,21 +9,29 @@ const { env } = process;
 
 const app = express();
 
-(async function(){
-	const dev_test = `postgres://${env.PGuser}${env.PGpassword ? ':'+env.PGpassword : ''}@${env.PGhost}:${env.PGport}/${env.PGdatabaseName}`;
+(async function() {
+	const dev_test = `postgres://${env.PGuser}${
+		env.PGpassword ? ':' + env.PGpassword : ''
+	}@${env.PGhost}:${env.PGport}/${env.PGdatabaseName}`;
 
-	const connectionString = env.NODE_ENV === 'production' ? env.DATABASE_URL : dev_test;
+	const connectionString =
+		env.NODE_ENV === 'production' ? env.DATABASE_URL : dev_test;
 
-	const dbPool = new Pool({connectionString});
+	try {
+		const dbPool = new Pool({ connectionString });
 
-	/** Create a single database instace for the entire app
-	 * @see https://node-postgres.com/features/pooling
-	 * The preffered way to query
-	 * @see https://node-postgres.com/features/pooling#single-query
-	 */
-	app.locals.dbClient = dbPool;
+		/** Create a single database instace for the entire app
+		 * @see https://node-postgres.com/features/pooling
+		 * The preffered way to query
+		 * @see https://node-postgres.com/features/pooling#single-query
+		 */
+		app.locals.dbClient = dbPool;
 
-	await new databaseTables().install(dbPool);
+		await new databaseTables().install(dbPool);
+		console.log('string => ',dev_test)
+	} catch (exception) {
+		console.log(exception);
+	}
 })();
 
 if (env.NODE_ENV === 'production') {
