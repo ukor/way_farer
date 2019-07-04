@@ -32,10 +32,10 @@ module.exports = function (userDetails) {
 	return {
 		slug: shortId.generate(),
 		email: validator.normalizeEmail(validator.trim(userDetails.email)),
-		firstName: validator.escape(validator.trim(userDetails.first_name)),
-		lastName: validator.escape(validator.trim(userDetails.last_name)),
+		first_name: validator.escape(validator.trim(userDetails.first_name)),
+		last_name: validator.escape(validator.trim(userDetails.last_name)),
 		password: validator.trim(userDetails.password),
-		isAdmin: false,
-		dateJoined: new Date()
+		is_admin: false,
+		date_joined: new Date()
 	};
 }

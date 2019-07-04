@@ -18,12 +18,12 @@ class User{
 	 */
 	async add(dbClient) {
 
-		const sql = `INSERT INTO users(slug, email, firstName, lastName, password, isAdmin, dateJoined) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
+		const sql = `INSERT INTO users(slug, email, first_name, last_name, password, is_admin, date_joined) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
 		const values = [
 			this.userDetails['slug'], this.userDetails['email'],
-			this.userDetails['firstName'], this.userDetails['lastName'],
-			this.userDetails['password'], this.userDetails['isAdmin'],
-			this.userDetails['dateJoined']
+			this.userDetails['first_name'], this.userDetails['last_name'],
+			this.userDetails['password'], this.userDetails['is_admin'],
+			this.userDetails['date_joined']
 		];
 
 		let query = await dbClient.query(sql, values);

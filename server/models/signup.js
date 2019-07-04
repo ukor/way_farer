@@ -24,7 +24,7 @@ class Signup {
 
 		// make the first user an admin
 		const isFirstUser = await new user(null).count(dbClient);
-		userDetails['isAdmin'] = isFirstUser === 0;
+		userDetails['is_admin'] = isFirstUser === 0;
 
 		return userDetails;
 	};
@@ -33,8 +33,8 @@ class Signup {
 
 		// generate token
 		const token = await jwt.sign({
-			firstName: userDetails.firstName,
-			lastName: userDetails.lastName,
+			firstName: userDetails.first_name,
+			lastName: userDetails.last_name,
 			userId: userDetails.slug,
 			date: new Date(),
 		}, process.env.jwtSecret, {
@@ -44,7 +44,7 @@ class Signup {
 		});
 
 		return {
-			isAdmin: userDetails.isAdmin,
+			isAdmin: userDetails.is_admin,
 			token,
 			userId: userDetails.slug,
 		}
