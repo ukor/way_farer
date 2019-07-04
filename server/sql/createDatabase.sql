@@ -4,7 +4,7 @@
 
 -- If the database exists, this will just throw an error.
 
-CREATE DATABASE testPG
+CREATE DATABASE postgres
   WITH OWNER = postgres
        ENCODING = 'UTF8'
        TABLESPACE = pg_default
