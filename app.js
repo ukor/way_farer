@@ -3,27 +3,33 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const databaseTables = require('./server/models/installDatabaseTable.js');
 const routes = require('./server/routes/index.js');
+const pgConnection = require('pg-connection-string').parse;
 
 const { Pool } = require('pg');
 const { env } = process;
 
 const app = express();
 
-(async function(){
-	const dev_test = `postgres://${env.PGuser}${env.PGpassword ? ':'+env.PGpassword : ''}@${env.PGhost}:${env.PGport}/${env.PGdatabaseName}`;
+(async function() {
 
-	const connectionString = env.NODE_ENV === 'production' ? env.DATABASE_URL : dev_test;
+	try {
+		const dev_test = `postgres://${env.PGuser}:${env.PGpassword}@${env.PGhost}:${env.PGport}/${env.PGdatabaseName}`;
 
-	const dbPool = new Pool({connectionString});
+		const connectionString = env.NODE_ENV === 'production' ? env.DATABASE_URL : dev_test;
+		const dbConfig = pgConnection(connectionString);
+		const dbPool = new Pool(dbConfig);
 
-	/** Create a single database instace for the entire app
-	 * @see https://node-postgres.com/features/pooling
-	 * The preffered way to query
-	 * @see https://node-postgres.com/features/pooling#single-query
-	 */
-	app.locals.dbClient = dbPool;
+		/** Create a single database instace for the entire app
+		 * @see https://node-postgres.com/features/pooling
+		 * The preffered way to query
+		 * @see https://node-postgres.com/features/pooling#single-query
+		 */
+		app.locals.dbClient = dbPool;
 
-	await new databaseTables().install(dbPool);
+		await new databaseTables().install(dbPool);
+	} catch (exception) {
+		console.log(exception);
+	}
 })();
 
 if (env.NODE_ENV === 'production') {
