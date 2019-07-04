@@ -35,16 +35,7 @@ describe('Test User interations', function () {
 		describe('Fetch user from database', async function () {
 
 			it('expect return value to be of type array', async function () {
-				let getUser = new user(1).fetch(id, dbPool);
-				await expect(getUser).to.eventually.be.an('array');
-			});
-
-		});
-
-		describe('Fetch user from database', async function () {
-
-			it('expect return value to be of type array', async function () {
-				let getUser = new user(1).fetch(id, dbPool);
+				let getUser = new user(1).fetch('id', dbPool);
 				await expect(getUser).to.eventually.be.an('array');
 			});
 

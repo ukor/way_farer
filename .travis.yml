@@ -6,6 +6,7 @@ node_js:
   - "10"
 env:
   global:
+    - PGPORT='5432'
     - NODE_ENV=test
     - PGhost='127.0.0.1'
     - PGpassword=''
