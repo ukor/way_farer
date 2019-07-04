@@ -3,13 +3,9 @@ language: node_js
 services:
   - postgresql
 before_script:
-  - sleep 20
-  - psql -c 'CREATE DATABASE testPG;' -U postgres
-  - sleep 12
+  - sleep 10
   - psql -U postgres -a -f ./server/sql/createDatabase.sql
-  - sleep 5
   - psql -U postgres -a -f ./server/sql/createTable.sql
-  
 node_js:
   - "10"
 env:

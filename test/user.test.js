@@ -10,13 +10,16 @@ const signup = require('../server/models/signup.js');
 const dummyData = require('./__dummyData.js');
 const signupValidator = require('../server/middlewares/validators/signup.js');
 const { env } = process;
+const pgConnection = require('pg-connection-string').parse;
 
 describe('Test User interations', function () {
 	let dbPool;
 	let dummyUser = signupValidator(dummyData.signup);
 	before(async function () {
-		const dbURI = `postgres://${env.PGuser}${env.PGpassword ? ':'+env.PGpassword : ''}@${env.PGhost}:${env.PGport}/${env.PGdatabaseName}`;
-		dbPool = new Pool({connectionString: dbURI});
+		const dbURI = `postgres://${env.PGuser}:${env.PGpassword}@${env.PGhost}:${env.PGport}/${env.PGdatabaseName}`;
+		const dbConfig = pgConnection(dbURI);
+		console.log(dbConfig);
+		dbPool = new Pool(dbConfig);
 	});
 
 	after(async function () { });
