@@ -10,7 +10,7 @@ const { env } = process;
 const app = express();
 
 (async function() {
-	const dev_test = `postgres://${env.PGuser}${env.PGpassword}@${env.PGhost}:${env.PGport}/${env.PGdatabaseName}`;
+	const dev_test = `postgres://${env.PGuser}:${env.PGpassword}@${env.PGhost}:${env.PGport}/${env.PGdatabaseName}`;
 
 	const connectionString =
 		env.NODE_ENV === 'production' ? env.DATABASE_URL : dev_test;
