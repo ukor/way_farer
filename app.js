@@ -27,7 +27,6 @@ const app = express();
 		app.locals.dbClient = dbPool;
 
 		await new databaseTables().install(dbPool);
-		console.log('string => ', dbConfig);
 	} catch (exception) {
 		console.log(exception);
 	}

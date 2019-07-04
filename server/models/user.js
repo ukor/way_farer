@@ -43,7 +43,7 @@ class User{
 
 		let query = await dbClient.query(sql);
 
-		return query.rows[0].count;
+		return Number(query.rows[0].count);
 	}
 
 	/**

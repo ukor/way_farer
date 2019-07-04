@@ -12,20 +12,19 @@ class Signup {
 		this._userDetails = userDetails;
 	}
 
-	async _beforeRegister() {
+	async _beforeRegister(userDetails) {
 
 		const dbClient = this._dbClient;
-		const userDetails = this._userDetails;
 		// make sure there is no user with this email addres
 		const isEmailInUse = await new user(userDetails.email).fetch('email', dbClient);
 		if (isEmailInUse.length) throw new customError('Email is in use. Try another email address', 'userError');
 
 		// hash password
-		this.userDetails['password'] = await bcrypt.hash(this.userDetails['password'], 10);
+		userDetails['password'] = await bcrypt.hash(userDetails['password'], 10);
 
 		// make the first user an admin
 		const isFirstUser = await new user(null).count(dbClient);
-		this.userDetails['isAdmin'] = isFirstUser === 0;
+		userDetails['isAdmin'] = isFirstUser === 0;
 
 		return userDetails;
 	};
@@ -54,7 +53,7 @@ class Signup {
 	async register() {
 
 		const dbClient = this._dbClient;
-		const userDetails = await this._beforeRegister();
+		const userDetails = await this._beforeRegister(this._userDetails);
 		const registerResp = await new user(userDetails).add(dbClient);
 
 		if (!registerResp) throw new customError('Failed persisting user into database', 'devError');
