@@ -15,7 +15,7 @@ const app = express();
 
 	const connectionString =
 	env.NODE_ENV === 'production' ? env.DATABASE_URL : dev_test;
-	const dbConfig = connectionString(connectionString).parser;
+	const dbConfig = pgConnection(connectionString).parser;
 
 	try {
 		const dbPool = new Pool(dbConfig);
