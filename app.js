@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const databaseTables = require('./server/models/installDatabaseTable.js');
 const routes = require('./server/routes/index.js');
-const pgConnection = require('pg-connection-string');
+const pgConnection = require('pg-connection-string').parse;
 
 const { Pool } = require('pg');
 const { env } = process;
@@ -11,13 +11,12 @@ const { env } = process;
 const app = express();
 
 (async function() {
-	const dev_test = `postgres://${env.PGuser}:${env.PGpassword}@${env.PGhost}:${env.PGport}/${env.PGdatabaseName}`;
-
-	const connectionString =
-	env.NODE_ENV === 'production' ? env.DATABASE_URL : dev_test;
-	const dbConfig = pgConnection(connectionString).parser;
 
 	try {
+		const dev_test = `postgres://${env.PGuser}:${env.PGpassword}@${env.PGhost}:${env.PGport}/${env.PGdatabaseName}`;
+
+		const connectionString = env.NODE_ENV === 'production' ? env.DATABASE_URL : dev_test;
+		const dbConfig = pgConnection(connectionString);
 		const dbPool = new Pool(dbConfig);
 
 		/** Create a single database instace for the entire app
@@ -29,7 +28,6 @@ const app = express();
 
 		await new databaseTables().install(dbPool);
 		console.log('string => ', dbConfig);
-		console.log('database => ', dbPool);
 	} catch (exception) {
 		console.log(exception);
 	}
