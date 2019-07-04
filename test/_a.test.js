@@ -7,6 +7,7 @@ const expect = chai.expect;
 const { Pool } = require('pg');
 const { env } = process;
 
+const databaseTables = require('../server/models/installDatabaseTable.js');
 const pgConnection = require('pg-connection-string').parse;
 
 describe('Test User interations', function () {
