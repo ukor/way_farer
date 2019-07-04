@@ -1,6 +1,6 @@
--- Database: testPG
+-- Database: postgres
 
--- DROP DATABASE testPG;
+-- DROP DATABASE postgres;
 
 -- If the database exists, this will just throw an error.
 

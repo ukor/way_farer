@@ -11,7 +11,8 @@ before_install:
   - sudo cp /etc/postgresql/{9.6,11}/main/pg_hba.conf
   - sudo service postgresql restart 11
 before_script:
-  - sleep 10
+  - sleep 5
+  - psql --version
   - psql -U postgres -a -f ./server/sql/createDatabase.sql
   - psql -c 'CREATE ROLE travis SUPERUSER LOGIN CREATEDB;' -U postgres
   - psql -U postgres -a -f ./server/sql/createTable.sql

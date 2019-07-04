@@ -36,6 +36,6 @@ module.exports = function (userDetails) {
 		lastName: validator.escape(validator.trim(userDetails.last_name)),
 		password: validator.trim(userDetails.password),
 		isAdmin: false,
-		dateJoined: ''
+		dateJoined: new Date()
 	};
 }

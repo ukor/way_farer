@@ -15,6 +15,7 @@ const pgConnection = require('pg-connection-string').parse;
 describe('Test User interations', function () {
 	let dbPool;
 	let dummyUser = signupValidator(dummyData.signup);
+	console.log('dummy user => ', dummyUser);
 	before(async function () {
 		const dbURI = `postgres://${env.PGuser}:${env.PGpassword}@${env.PGhost}:${env.PGport}/${env.PGdatabaseName}`;
 		const dbConfig = pgConnection(dbURI);
@@ -43,6 +44,14 @@ describe('Test User interations', function () {
 			});
 
 		});
+		describe('Count number of user in the database', async function () {
+
+			it('Expect return value to be of type number', async function () {
+				let countUser = new user(null).count(dbPool);
+				await expect(count).to.eventually.be.a('number');
+			});
+
+		});
 
 		describe('Delete user from database', async function () {
 
@@ -57,10 +66,16 @@ describe('Test User interations', function () {
 
 	describe('Sign up', function () {
 		it('Expect return value to be an object', async function () {
+			dummyUser = signupValidator(dummyData.signup);
 			let s = new signup(dummyUser, dbPool).register();
 			await expect(s).to.eventually.be.an('object');
 		});
+		it('Expect an error to be thrown - `Email already in use`', async function () {
+			let s = new signup(dummyUser, dbPool).register();
+			await expect(s).to.eventually.be.rejected;
+		});
 		it('Expect return value to have isAdmin, token, and userId as property', async function () {
+			dummyUser = signupValidator(dummyData.signup);
 			let s = new signup(dummyUser, dbPool).register();
 			await expect(s).to.eventually.have.property('isAdmin');
 			await expect(s).to.eventually.have.property('token');

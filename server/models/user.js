@@ -42,7 +42,6 @@ class User{
 		const sql = `SELECT COUNT(*) FROM users WHERE id > 0`;
 
 		let query = await dbClient.query(sql);
-		console.log('count => ', query.rows[0].count);
 
 		return query.rows[0].count;
 	}
