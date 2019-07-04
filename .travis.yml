@@ -3,7 +3,7 @@ language: node_js
 services:
   - postgresql
 before_script:
-  - psql -c "CREATE DATABASE testPG;" -U postgres
+  - psql -c 'CREATE DATABASE testPG;' -U postgres
 node_js:
   - "10"
 env:
