@@ -2,12 +2,6 @@ dist: trusty
 language: node_js
 services:
   - postgresql
-addons:
-  postgresql: "11"
-  apt:
-    packages:
-      - postgresql-11
-      - postgresql-client-11
 node_js:
   - "10"
 env:
