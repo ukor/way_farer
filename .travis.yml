@@ -1,7 +1,7 @@
 dist: trusty
 language: node_js
 services:
-  postgresql
+  - postgresql
 node_js:
   - "10"
 env:
