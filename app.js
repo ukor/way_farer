@@ -45,4 +45,13 @@ app.get('/', async (request, response) => {
 
 routes(app);
 
+
+app.use(function (error, req, res, next) {
+	res.json({
+		status: 'error',
+		error: error.message,
+		code: error.code
+	});
+});
+
 module.exports = app;
