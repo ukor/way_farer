@@ -1,26 +1,18 @@
 'use strict';
 /**
- * Creates a new WayFarer Error
+ * Custom error handlers
+ * @see https://pastebin.com/aRpPr5Sd and
+ * @see https://stackoverflow.com/questions/1382107/whats-a-good-way-to-extend-error-in-javascript
+ * @see https://javascript.info/custom-errors
  *
- * @augments Error
- * @param {Error|string|object} message The error message
- * @property {string} message The error message
- * @property {string} stack The error call stack
+ * @param {*} error
  */
-class WayFarerError extends Error {
-	constructor(exception, name) {
-		if (exception instanceof Error) {
-			super(exception.message);
-			this.message = exception.message
-			this.name = message.name;
-		} else {
-			/** Either array or string */
-			super(exception);
-			this.message = exception;
-			this.name = name;
-		}
-		this.stack = (new Error).stack;
-	}
+
+function customError(message, name, error_code = 410) {
+	this.name = name;
+	this.message = message;
+	this.code = error_code;
+	this.stack = (new Error()).stack;
 }
 
-module.exports = WayFarerError;
+module.exports = customError;
