@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const validator = require('../middlewares/validators/signup.js');
+const signup = require('../models/signup.js');
 
 router.post('/', (request, response, next) => {
 	try {
@@ -12,10 +13,11 @@ router.post('/', (request, response, next) => {
 	}
 }, async (request, response, next) => {
 		try {
-			// todo - save to db
+			const { dbClient } = request.app.locals;
+			let userResp = await new signup(request.body, dbClient).register();
 			response.json({
 				status: 'success',
-				data: request.body,
+				data: userResp,
 			});
 		} catch (exception) {
 			next(exception);
