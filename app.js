@@ -38,6 +38,7 @@ if (env.NODE_ENV === 'production') {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use('/v1/doc', express.static('./documentation/html/doc.html'));
 
 app.get('/', async (request, response) => {
 	response.sendStatus(200);
