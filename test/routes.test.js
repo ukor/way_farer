@@ -48,6 +48,7 @@ describe('Routes Test', function () {
 			request.post('/v1/auth/signin')
 				.send({password: 'password', email: ''})
 				.expect(function (response) {
+					console.log(response.body);
 					expect(response.body).to.be.an('object');
 					expect(response.body).to.be.have.property('status', 'error');
 					expect(response.body).to.be.have.property('error');

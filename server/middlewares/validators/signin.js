@@ -17,7 +17,7 @@ module.exports = (userDetails) => {
 
 	if (errors) throw new customError(errors, 'userError', 400);
 	return {
-		email: normalizeEmail(trim(userdetails.email)),
-		password: trim(userdetails.password)
+		email: normalizeEmail(trim(userDetails.email)),
+		password: trim(userDetails.password)
 	};
 }
