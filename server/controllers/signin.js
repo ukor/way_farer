@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const signInValidator = require('../middlewares/validators/signin.js');
-const signup = require('../models/signin.js');
+const signin = require('../models/signin.js');
 
 router.post('/', function (request, response, next) {
 	try {
@@ -16,7 +16,7 @@ router.post('/', function (request, response, next) {
 }, async function (request, response, next) {
 		try {
 			// do sign in
-			let user = await new signup(request.body, dbClient).authorize();
+			let user = await new signin(request.body, dbClient).authorize();
 			response.json({
 				status: 'success',
 				data: user,

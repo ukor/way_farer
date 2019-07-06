@@ -7,10 +7,9 @@ const expect = chai.expect;
 const { Pool } = require('pg');
 const user = require('../server/models/user.js');
 const signup = require('../server/models/signup.js');
-const signIn = require('../server/models/signin.js');
+const signin = require('../server/models/signin.js');
 const dummyData = require('./__dummyData.js');
 const signupValidator = require('../server/middlewares/validators/signup.js');
-const signinValidator = require('../server/middlewares/validators/signin.js');
 const { env } = process;
 const pgConnection = require('pg-connection-string').parse;
 const slug = require('shortid');
@@ -87,14 +86,14 @@ describe('Test User interations', function () {
 
 	describe('Sign In', function () {
 		it('Expect return value to be an object', async function () {
-			let s = new signIn({
-				email: dummyUser.email,
-				password: dummyUser.password
+			let s = new signin({
+				email: dummyData.email,
+				password: dummyData.password
 			}, dbPool).authorize();
 			await expect(s).to.eventually.be.an('object');
 		});
 		it('Expect an error to be thrown - `Email not found`', async function () {
-			let s = new signIn({
+			let s = new signin({
 				email: 'no_email@like.this',
 				password: 'wrong_password'
 			}, dbPool).authorize();
@@ -103,8 +102,8 @@ describe('Test User interations', function () {
 		it('Expect return value to have isAdmin, token, and userId as property', async function () {
 
 			let s = new signin({
-				email: dummyUser.email,
-				password: dummyUser.password
+				email: dummyData.email,
+				password: dummyData.password
 			}, dbPool).authorize();
 			await expect(s).to.eventually.have.property('isAdmin');
 			await expect(s).to.eventually.have.property('token');
