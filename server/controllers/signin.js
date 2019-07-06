@@ -16,6 +16,7 @@ router.post('/', function (request, response, next) {
 }, async function (request, response, next) {
 		try {
 			// do sign in
+			const { dbClient } = request.app.locals;
 			let user = await new signin(request.body, dbClient).authorize();
 			response.json({
 				status: 'success',
