@@ -5,5 +5,9 @@ module.exports = {
 		last_name: `${slug.generate()}`,
 		email: `${slug.generate()}@gmail.test`,
 		password: `${slug.generate()}`
+	},
+	signIn: {
+		email: 'example@gmail.test',
+		password: 'password',
 	}
 };
