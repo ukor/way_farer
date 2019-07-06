@@ -15,12 +15,12 @@ class SignIn {
 	async _beforeAuthorizing() {
 		// fetch user from db using email address
 		const ud = await new user(this._userDetails.email).fetch('email', this._dbClient);
-		if (ud.length <= 0) throw customError('Incorrect email address or password.', 'userError', 400);
+		if (ud.length <= 0) throw new customError('Incorrect email address or password.', 'userError', 400);
 		const { password, slug, is_admin, first_name, last_name } = ud[0];
 		// compare password hash
 		const isPasswordMatch = await bcrypt.compare(this._userDetails.password, password);
 
-		if (!isPasswordMatch) throw customError('Incorrect email address or password.', 'userError', 400);
+		if (!isPasswordMatch) throw new customError('Incorrect email address or password.', 'userError', 400);
 
 		return {
 			slug, is_admin, first_name, last_name
