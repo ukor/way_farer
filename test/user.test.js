@@ -7,6 +7,7 @@ const expect = chai.expect;
 const { Pool } = require('pg');
 const user = require('../server/models/user.js');
 const signup = require('../server/models/signup.js');
+const signin = require('../server/models/signin.js');
 const dummyData = require('./__dummyData.js');
 const signupValidator = require('../server/middlewares/validators/signup.js');
 const { env } = process;
@@ -77,6 +78,27 @@ describe('Test User interations', function () {
 				password: `${slug.generate()}`
 			});
 			let s = new signup(dummyUser, dbPool).register();
+			await expect(s).to.eventually.have.property('isAdmin');
+			await expect(s).to.eventually.have.property('token');
+			await expect(s).to.eventually.have.property('userId');
+		});
+	});
+
+	describe('Sign In', function () {
+		it('Expect return value to be an object', async function () {
+			let s = new signin(dummyData.signIn, dbPool).authorize();
+			await expect(s).to.eventually.be.an('object');
+		});
+		it('Expect an error to be thrown - `Email not found`', async function () {
+			let s = new signin({
+				email: 'no_email@like.this',
+				password: 'wrong_password'
+			}, dbPool).authorize();
+			await expect(s).to.eventually.be.rejected;
+		});
+		it('Expect return value to have isAdmin, token, and userId as property', async function () {
+
+			let s = new signin(dummyData.signIn, dbPool).authorize();
 			await expect(s).to.eventually.have.property('isAdmin');
 			await expect(s).to.eventually.have.property('token');
 			await expect(s).to.eventually.have.property('userId');

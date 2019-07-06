@@ -2,6 +2,18 @@ FORMAT: 1A
 # Way Farer
 Way farer is a simple bus transportation booking server
 
+# Group Error
+### Error Response
+The structure for all error response
+
++ Response 200 (application/json)
+
+        {
+            "status": "error",
+            "error": "Error message",
+            "code": "error code",
+        }
+
 # Group Users
 ## Sign Up [/v1/auth/signup]
 ### Register new user [POST]
@@ -12,6 +24,29 @@ Create a new user using this endpoint. It takes a JSON payload containing the us
         {
             first_name: 'John',
             last_name: 'Doe',
+            email: 'johndoe@example.com',
+            password: 'password'
+        }
+
+
++ Response 200 (application/json)
+
+        {
+            status: 'success',
+            data: {
+                isAdmin: true,
+                token: 'somelongstring',
+                userId: 'somestrings',
+            }
+        }
+
+## Sign In [/v1/auth/signin]
+### Login user [POST]
+Sign in an existing user. It takes a JSON payload containing the user email address and password.
+
++ Request (application/json)
+
+        {
             email: 'johndoe@example.com',
             password: 'password'
         }
