@@ -36,7 +36,6 @@ describe('Routes Test', function () {
 			request.post('/v1/auth/signin')
 				.send(dummyData.signIn)
 				.expect(function (response) {
-					console.log(response.body);
 					expect(response.body).to.be.an('object');
 					expect(response.body).to.be.have.property('status');
 					expect(response.body).to.be.have.property('data');
@@ -48,7 +47,6 @@ describe('Routes Test', function () {
 			request.post('/v1/auth/signin')
 				.send({password: 'password', email: ''})
 				.expect(function (response) {
-					console.log(response.body);
 					expect(response.body).to.be.an('object');
 					expect(response.body).to.be.have.property('status', 'error');
 					expect(response.body).to.be.have.property('error');
