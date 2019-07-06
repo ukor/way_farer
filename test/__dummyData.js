@@ -7,7 +7,7 @@ module.exports = {
 		password: `${slug.generate()}`
 	},
 	signIn: {
-		email: 'example@gmail.com',
+		email: 'example@gmail.test',
 		password: 'password',
 	}
 };

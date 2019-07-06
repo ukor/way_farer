@@ -87,20 +87,25 @@ describe('Test User interations', function () {
 
 	describe('Sign In', function () {
 		it('Expect return value to be an object', async function () {
-			dummyUser = signinValidator({
-				email: `${slug.generate()}@gmail.test`,
-				password: `${slug.generate()}`
-			});
-			let s = new signIn(dummyUser, dbPool).authorize();
+			let s = new signIn({
+				email: dummyUser.email,
+				password: dummyUser.password
+			}, dbPool).authorize();
 			await expect(s).to.eventually.be.an('object');
 		});
 		it('Expect an error to be thrown - `Email not found`', async function () {
-			let s = new signIn(dummyUser, dbPool).authorize();
+			let s = new signIn({
+				email: 'no_email@like.this',
+				password: 'wrong_password'
+			}, dbPool).authorize();
 			await expect(s).to.eventually.be.rejected;
 		});
 		it('Expect return value to have isAdmin, token, and userId as property', async function () {
 
-			let s = new signin(dummyUser, dbPool).authorize();
+			let s = new signin({
+				email: dummyUser.email,
+				password: dummyUser.password
+			}, dbPool).authorize();
 			await expect(s).to.eventually.have.property('isAdmin');
 			await expect(s).to.eventually.have.property('token');
 			await expect(s).to.eventually.have.property('userId');
