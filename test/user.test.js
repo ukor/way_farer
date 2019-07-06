@@ -86,10 +86,7 @@ describe('Test User interations', function () {
 
 	describe('Sign In', function () {
 		it('Expect return value to be an object', async function () {
-			let s = new signin({
-				email: dummyData.email,
-				password: dummyData.password
-			}, dbPool).authorize();
+			let s = new signin(dummyData.signIn, dbPool).authorize();
 			await expect(s).to.eventually.be.an('object');
 		});
 		it('Expect an error to be thrown - `Email not found`', async function () {
@@ -101,10 +98,7 @@ describe('Test User interations', function () {
 		});
 		it('Expect return value to have isAdmin, token, and userId as property', async function () {
 
-			let s = new signin({
-				email: dummyData.email,
-				password: dummyData.password
-			}, dbPool).authorize();
+			let s = new signin(dummyData.signIn, dbPool).authorize();
 			await expect(s).to.eventually.have.property('isAdmin');
 			await expect(s).to.eventually.have.property('token');
 			await expect(s).to.eventually.have.property('userId');
