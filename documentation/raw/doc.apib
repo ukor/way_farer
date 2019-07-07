@@ -62,3 +62,36 @@ Sign in an existing user. It takes a JSON payload containing the user email addr
                 userId: 'somestrings',
             }
         }
+
+# Group Trips
+## Trips Collection [/v1/trips]
+### Create Trip [POST]
+This endpoint allows admins to create new trips.
+
++ Request (application/json)
+    + Attributes
+        + userId (string, required)
+    + Headers
+
+            Authorization: token
+
+    + Body
+
+            {
+                userId: 'someUserId'
+            }
+
++ Response 200 (application/json)
+
+        {
+            status: 'success',
+            data: {
+                tripId: 'someTripId',
+                busId: 'someBusId',
+                origin: 'Abakaliki',
+                destination: 'Asaba',
+                tripDate: '',
+                fare: '250.00',
+                currency: 'NGN'
+            }
+        }
