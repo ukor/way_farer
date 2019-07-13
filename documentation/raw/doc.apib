@@ -67,10 +67,19 @@ Sign in an existing user. It takes a JSON payload containing the user email addr
 ## Trips Collection [/v1/trips]
 ### Create Trip [POST]
 This endpoint allows admins to create new trips.
+Token can be pass with the Authorization header or with the request; When both are passed the Authorization header takes precedence.
 
 + Request (application/json)
     + Attributes
-        + userId (string, required)
+        + token: jwttoken (string)
+        + user_id: someUserId (string, required)
+        + is_admin: true (boolean)
+        + bus_id: someBusId (string, required)
+        + origin: Abakaliki (string, required)
+        + destination: Asaba (string, required)
+        + trip_date: 2019/07/18 09:00:00 (string, required)
+        + fare: 5500 (number, required)
+
     + Headers
 
             Authorization: token
@@ -78,7 +87,14 @@ This endpoint allows admins to create new trips.
     + Body
 
             {
-                userId: 'someUserId'
+                token: 'jwttoken'
+                user_id: 'someUserId',
+                is_admin: true,
+                bus_id: 'some_string',
+                origin: 'Abakaliki',
+                destination: 'Asaba',
+                trip_date: '2019/07/17 09:00:00',
+                fare: 5500
             }
 
 + Response 200 (application/json)
@@ -86,12 +102,12 @@ This endpoint allows admins to create new trips.
         {
             status: 'success',
             data: {
-                tripId: 'someTripId',
-                busId: 'someBusId',
+                trip_id: 'someTripId',
+                bus_id: 'someBusId',
                 origin: 'Abakaliki',
                 destination: 'Asaba',
-                tripDate: '',
-                fare: '250.00',
+                trip_date: '',
+                fare: 5500.00,
                 currency: 'NGN'
             }
         }

@@ -36,31 +36,65 @@
     }
 }</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div></div><div class="middle"><div id="users-sign-in-post" class="action post"><h4 class="action-heading"><div class="name">Login user</div><a href="#users-sign-in-post" class="method post">POST</a><code class="uri">/v1/auth/signin</code></h4><p>Sign in an existing user. It takes a JSON payload containing the user email address and password.</p>
 </div></div><hr class="split"><div class="middle"><section id="trips" class="resource-group"><h2 class="group-heading">Trips <a href="#trips" class="permalink">&para;</a></h2></section></div><div class="middle"><div id="trips-trips-collection" class="resource"><h3 class="resource-heading">Trips Collection <a href="#trips-trips-collection" class="permalink">&para;</a></h3></div></div><div class="right"><div class="definition"><span class="method post">POST</span>&nbsp;<span class="uri"><span class="hostname"></span>/v1/trips</span></div><div class="tabs"><div class="example-names"><span>Requests</span><span class="tab-button">example 1</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">token</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
-  "<span class="hljs-attribute">userId</span>": <span class="hljs-value"><span class="hljs-string">"Hello, world!"</span>
+  "<span class="hljs-attribute">token</span>": <span class="hljs-value"><span class="hljs-string">"jwttoken"</span></span>,
+  "<span class="hljs-attribute">user_id</span>": <span class="hljs-value"><span class="hljs-string">"someUserId"</span></span>,
+  "<span class="hljs-attribute">is_admin</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
+  "<span class="hljs-attribute">bus_id</span>": <span class="hljs-value"><span class="hljs-string">"someBusId"</span></span>,
+  "<span class="hljs-attribute">origin</span>": <span class="hljs-value"><span class="hljs-string">"Abakaliki"</span></span>,
+  "<span class="hljs-attribute">destination</span>": <span class="hljs-value"><span class="hljs-string">"Asaba"</span></span>,
+  "<span class="hljs-attribute">trip_date</span>": <span class="hljs-value"><span class="hljs-string">"2019/07/18 09:00:00"</span></span>,
+  "<span class="hljs-attribute">fare</span>": <span class="hljs-value"><span class="hljs-number">5500</span>
 </span>}</code></pre><div style="height: 1px;"></div><h5>Schema</h5><pre><code>{
   "<span class="hljs-attribute">$schema</span>": <span class="hljs-value"><span class="hljs-string">"http://json-schema.org/draft-04/schema#"</span></span>,
   "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"object"</span></span>,
   "<span class="hljs-attribute">properties</span>": <span class="hljs-value">{
-    "<span class="hljs-attribute">userId</span>": <span class="hljs-value">{
+    "<span class="hljs-attribute">token</span>": <span class="hljs-value">{
       "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">user_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">is_admin</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"boolean"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">bus_id</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">origin</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">destination</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">trip_date</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"string"</span>
+    </span>}</span>,
+    "<span class="hljs-attribute">fare</span>": <span class="hljs-value">{
+      "<span class="hljs-attribute">type</span>": <span class="hljs-value"><span class="hljs-string">"number"</span>
     </span>}
   </span>}</span>,
   "<span class="hljs-attribute">required</span>": <span class="hljs-value">[
-    <span class="hljs-string">"userId"</span>
+    <span class="hljs-string">"user_id"</span>,
+    <span class="hljs-string">"bus_id"</span>,
+    <span class="hljs-string">"origin"</span>,
+    <span class="hljs-string">"destination"</span>,
+    <span class="hljs-string">"trip_date"</span>,
+    <span class="hljs-string">"fare"</span>
   ]
 </span>}</code></pre><div style="height: 1px;"></div></div></div><div class="tabs"><div class="example-names"><span>Responses</span><span class="tab-button">200</span></div><div class="tab"><div><div class="inner"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span></code></pre><div style="height: 1px;"></div><h5>Body</h5><pre><code>{
     status: <span class="hljs-string">'success'</span>,
     data: {
-        tripId: <span class="hljs-string">'someTripId'</span>,
-        busId: <span class="hljs-string">'someBusId'</span>,
+        trip_id: <span class="hljs-string">'someTripId'</span>,
+        bus_id: <span class="hljs-string">'someBusId'</span>,
         origin: <span class="hljs-string">'Abakaliki'</span>,
         destination: <span class="hljs-string">'Asaba'</span>,
-        tripDate: <span class="hljs-string">''</span>,
-        fare: <span class="hljs-string">'250.00'</span>,
+        trip_date: <span class="hljs-string">''</span>,
+        fare: <span class="hljs-number">5500.00</span>,
         currency: <span class="hljs-string">'NGN'</span>
     }
-}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div></div><div class="middle"><div id="trips-trips-collection-post" class="action post"><h4 class="action-heading"><div class="name">Create Trip</div><a href="#trips-trips-collection-post" class="method post">POST</a><code class="uri">/v1/trips</code></h4><p>This endpoint allows admins to create new trips.</p>
-</div></div><hr class="split"><div class="middle"><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 07 Jul 2019</p></div></div></div></div><script>/* eslint-env browser */
+}</code></pre><div style="height: 1px;"></div></div></div></div></div></div></div></div><div class="middle"><div id="trips-trips-collection-post" class="action post"><h4 class="action-heading"><div class="name">Create Trip</div><a href="#trips-trips-collection-post" class="method post">POST</a><code class="uri">/v1/trips</code></h4><p>This endpoint allows admins to create new trips.
+Token can be pass with the Authorization header or with the request; When both are passed the Authorization header takes precedence.</p>
+</div></div><hr class="split"><div class="middle"><p style="text-align: center;" class="text-muted">Generated by&nbsp;<a href="https://github.com/danielgtaylor/aglio" class="aglio">aglio</a>&nbsp;on 13 Jul 2019</p></div></div></div></div><script>/* eslint-env browser */
 /* eslint quotes: [2, "single"] */
 'use strict';
 
