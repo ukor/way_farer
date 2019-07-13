@@ -10,14 +10,26 @@ class CreateTrip {
 
   async beforeCreatingTrip() {
     // make sure this is an admin
-    if (this.tripDetails.is_admin === null || this.tripDetails.is_admin === undefined) {
+    if (
+      this.tripDetails.is_admin === null
+      || this.tripDetails.is_admin === undefined
+    ) {
       const usr = await new User(this.tripDetails).fetch('slug', this.dbClient);
-      if (!usr[0].is_admin) throw new CustomError('You need to be an admin to create trips.', 'userError', 403);
+      if (!usr[0].is_admin) {
+        throw new CustomError(
+          'You need to be an admin to create trips.',
+          'userError',
+          403,
+        );
+      }
     } else if (this.tripDetails.is_admin === false) {
-      throw new CustomError('You need to be an admin to create trips.', 'userError', 403);
+      throw new CustomError(
+        'You need to be an admin to create trips.',
+        'userError',
+        403,
+      );
     } else {
       // todo - make sure a bus exist
-
       // todo - check if bus has not been assign to another trip on that same day and time
     }
     return true;

@@ -1,67 +1,76 @@
 const bcrypt = require('bcrypt');
-const user = require('./user.js');
-const customError = require('../errorHandles/wayFarerError.js');
 const jwt = require('jsonwebtoken');
+
+const User = require('./user.js');
+const CustomError = require('../errorHandles/wayFarerError.js');
 const appConfig = require('../../package.json');
 
 class Signup {
+  constructor(userDetails, dbClient) {
+    this.dbClient = dbClient;
+    this.userDetails = userDetails;
+  }
 
-	constructor(userDetails, dbClient) {
-		this._dbClient = dbClient
-		// todo - structure data
-		this._userDetails = userDetails;
-	}
+  async beforeRegister() {
+    // make sure there is no user with this email addres
+    const isEmailInUse = await new User(this.userDetails.email).fetch(
+      'email',
+      this.dbClient,
+    );
+    if (isEmailInUse.length) {
+      throw new CustomError(
+        'Email is in use. Try another email address',
+        'userError',
+      );
+    }
 
-	async _beforeRegister(userDetails) {
+    // hash password
+    this.userDetails.password = await bcrypt.hash(
+      this.userDetails.password,
+      10,
+    );
 
-		const dbClient = this._dbClient;
-		// make sure there is no user with this email addres
-		const isEmailInUse = await new user(userDetails.email).fetch('email', dbClient);
-		if (isEmailInUse.length) throw new customError('Email is in use. Try another email address', 'userError');
+    // make the first user an admin
+    const isFirstUser = await new User(null).count(this.dbClient);
+    this.userDetails.is_admin = isFirstUser === 0;
 
-		// hash password
-		userDetails['password'] = await bcrypt.hash(userDetails['password'], 10);
+    return this.userDetails;
+  }
 
-		// make the first user an admin
-		const isFirstUser = await new user(null).count(dbClient);
-		userDetails['is_admin'] = isFirstUser === 0;
+  async afterRegister() {
+    // generate token
+    const token = await jwt.sign(
+      {
+        firstName: this.userDetails.first_name,
+        lastName: this.userDetails.last_name,
+        userId: this.userDetails.slug,
+        date: new Date(),
+      },
+      process.env.jwtSecret,
+      {
+        expiresIn: '12h',
+        audience: 'user',
+        issuer: appConfig.name,
+      },
+    );
 
-		return userDetails;
-	};
+    return {
+      isAdmin: this.userDetails.is_admin,
+      token,
+      userId: this.userDetails.slug,
+    };
+  }
 
-	async _afterRegister(userDetails) {
+  async register() {
+    this.userDetails = await this.beforeRegister();
+    const registerResp = await new User(this.userDetails).add(this.dbClient);
 
-		// generate token
-		const token = await jwt.sign({
-			firstName: userDetails.first_name,
-			lastName: userDetails.last_name,
-			userId: userDetails.slug,
-			date: new Date(),
-		}, process.env.jwtSecret, {
-				expiresIn: '12h',
-				audience: 'user',
-				issuer: appConfig.name,
-		});
+    if (!registerResp) throw new CustomError('Failed persisting user into database', 'devError');
 
-		return {
-			isAdmin: userDetails.is_admin,
-			token,
-			userId: userDetails.slug,
-		}
-	}
+    const resp = this.afterRegister();
 
-	async register() {
-
-		const dbClient = this._dbClient;
-		const userDetails = await this._beforeRegister(this._userDetails);
-		const registerResp = await new user(userDetails).add(dbClient);
-
-		if (!registerResp) throw new customError('Failed persisting user into database', 'devError');
-
-		const resp = this._afterRegister(userDetails);
-
-		return resp;
-	}
+    return resp;
+  }
 }
 
 module.exports = Signup;

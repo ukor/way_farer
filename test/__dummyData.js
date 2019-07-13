@@ -28,12 +28,16 @@ module.exports = {
     bus_slug: slug.generate(),
     origin: 'Abakaliki',
     destination: 'Asaba',
-    trip_date: moment().utc().format('YYYY/MM/DD HH:mm:ss'),
+    trip_date: moment()
+      .utc()
+      .format('YYYY/MM/DD HH:mm:ss'),
     fare: 2500,
     created_by: slug.generate(),
     user_id: slug.generate(),
     status: 'active',
-    date_created: moment().utc().format('YYYY/MM/DD HH:mm:ss'),
+    date_created: moment()
+      .utc()
+      .format('YYYY/MM/DD HH:mm:ss'),
   },
   tripByAdmin: {
     slug: slug.generate(),
@@ -41,13 +45,17 @@ module.exports = {
     bus_slug: slug.generate(),
     origin: 'Abakaliki',
     destination: 'Asaba',
-    trip_date: moment().utc().format('YYYY/MM/DD HH:mm:ss'),
+    trip_date: moment()
+      .utc()
+      .format('YYYY/MM/DD HH:mm:ss'),
     fare: 2500,
     created_by: slug.generate(),
     user_id: slug.generate(),
     status: 'active',
     is_admin: true,
-    date_created: moment().utc().format('YYYY/MM/DD HH:mm:ss'),
+    date_created: moment()
+      .utc()
+      .format('YYYY/MM/DD HH:mm:ss'),
   },
   busByAdmin: {},
 };

@@ -45,7 +45,9 @@ const validateTripDetails = (tripDetails) => {
     fare: td.fare,
     created_by: trim(td.user_id),
     status: 'active',
-    date_created: moment().utc().format('YYYY/MM/DD HH:mm:ss'),
+    date_created: moment()
+      .utc()
+      .format('YYYY/MM/DD HH:mm:ss'),
     is_admin: typeof td.is_admin !== 'undefined' ? td.is_admin : null,
     currency: 'NGN',
   };

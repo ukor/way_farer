@@ -1,4 +1,5 @@
-'use strict';
+/* eslint-disable camelcase */
+
 /**
  * Custom error handlers
  * @see https://pastebin.com/aRpPr5Sd and
@@ -9,10 +10,10 @@
  */
 
 function customError(message, name, error_code = 410) {
-	this.name = name;
-	this.message = message;
-	this.code = error_code;
-	this.stack = (new Error()).stack;
+  this.name = name;
+  this.message = message;
+  this.code = error_code;
+  this.stack = new Error().stack;
 }
 
 module.exports = customError;
