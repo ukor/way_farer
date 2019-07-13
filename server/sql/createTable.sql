@@ -22,6 +22,7 @@ CREATE TABLE IF NOT EXISTS buses(
 
 CREATE TABLE IF NOT EXISTS trips(
 	"id" SERIAL8 PRIMARY KEY,
+	"slug" CHAR(32) NOT NULL,
 	"bus_slug" CHAR(32) NOT NULL,
 	"origin" CHAR(72) NOT NULL,
 	"destination" CHAR(72) NOT NULL,
