@@ -26,11 +26,11 @@ module.exports = {
     bus_slug: slug.generate(),
     origin: 'Abakaliki',
     destination: 'Asaba',
-    trip_data: new Date(),
+    trip_date: moment().utc().format('YYYY/MM/DD HH:mm:ss'),
     fare: 2500,
     created_by: slug.generate(),
     status: 'active',
-    date_created: moment().utc().format(''),
+    date_created: moment().utc().format('YYYY/MM/DD HH:mm:ss'),
 	},
 	tripByAdmin: {
     slug: slug.generate(),
