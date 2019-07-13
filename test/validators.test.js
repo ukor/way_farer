@@ -46,7 +46,8 @@ describe('Middlewares Validators', () => {
 
   describe('Add Trip Validator', () => {
     it('Expect return value to be an object', function () {
-      const v = addTrip(dummyData.trip);
+			const v = addTrip(dummyData.trip);
+			console.log(v);
       expect(v).to.be.an('object');
       expect(v).to.have.property('origin');
       expect(v).to.have.property('created_by');
