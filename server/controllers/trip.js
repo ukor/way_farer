@@ -21,8 +21,7 @@ router.post('/', async (request, response, next) => {
 }, async (request, response, next) => {
   try {
     const { dbClient } = request.app.locals;
-		const { body } = request;
-		console.log('body =>', body);
+    const { body } = request;
     const resp = await new CreateTrip(body, dbClient).create();
     response.json({
       status: 'sucess',

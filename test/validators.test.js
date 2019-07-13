@@ -48,12 +48,12 @@ describe('Middlewares Validators', () => {
     it('Expect return value to be an object', function () {
       const v = addTrip(dummyData.trip);
       expect(v).to.be.an('object');
-      expect(v).to.have.property('bus_id');
+      expect(v).to.have.property('origin');
       expect(v).to.have.property('created_by');
     });
 
     it('Expect error to be thrown', function () {
-      delete dummyData.trip.created_by;
+      delete dummyData.trip.destination;
 
       expect(function () {
         addTrip(dummyData.trip);

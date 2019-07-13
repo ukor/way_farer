@@ -64,7 +64,7 @@ describe('Routes Test', function () {
     it('Expect creating trips route to return 200', function (done) {
       request.post('/v1/trips').send(dummyData.trip).expect(200, done);
     });
-    it('Expect creating trips route to be an object', function (done) {
+    it('Expect /v1/trips to return an object', function (done) {
       request.post('/v1/trips')
         .send(dummyData.trip)
         .expect(function (response) {
@@ -75,7 +75,7 @@ describe('Routes Test', function () {
         .expect(200, done);
     });
 
-    it('Expect /v1/trips response body to be an object with status = error', function (done) {
+    it('Expect /v1/trips return an object with status = error', function (done) {
       delete dummyData.trip.bus_id;
       request.post('/v1/trips')
         .send(dummyData.trip)
