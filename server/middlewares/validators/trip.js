@@ -7,7 +7,7 @@ const CustomError = require('../../errorHandles/wayFarerError.js');
 const validateTripDetails = (tripDetails) => {
   const td = tripDetails;
   const constriant = {
-    bus_slug: {
+    bus_id: {
       presence: true,
       type: 'string',
     },
@@ -27,26 +27,27 @@ const validateTripDetails = (tripDetails) => {
       presence: true,
       type: 'number',
     },
-    created_by: {
+    user_id: {
       presence: true,
       type: 'string',
     },
   };
   const errors = validate(td, constriant, { format: 'flat' });
 
-  if (errors) throw new CustomError(errors, 'userError', 404);
+  if (errors) throw new CustomError(errors, 'userError', 400);
 
   return {
     slug: slug.generate(),
-    bus_id: trim(td.bus_slug),
+    bus_slug: trim(td.bus_id),
     origin: trim(td.origin),
     destination: trim(escape(td.destination)),
     trip_date: trim(td.trip_date),
     fare: td.fare,
-    created_by: trim(td.created_by),
+    created_by: trim(td.user_id),
     status: 'active',
     date_created: moment().utc().format('YYYY/MM/DD HH:mm:ss'),
-    is_admin: td.is_admin ? td.is_admin : null,
+    is_admin: typeof td.is_admin !== 'undefined' ? td.is_admin : null,
+    currency: 'NGN',
   };
 };
 

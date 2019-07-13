@@ -3,42 +3,46 @@ const User = require('./user.js');
 const CustomError = require('../errorHandles/wayFarerError.js');
 
 class CreateTrip {
-	constructor(tripDetails, dbClient){
-		this.dbClient = dbClient;
-		this.tripDetails = tripDetails;
-	}
+  constructor(tripDetails, dbClient) {
+    this.dbClient = dbClient;
+    this.tripDetails = tripDetails;
+  }
 
-	async beforeCreatingTrip() {
-		// make sure this is an admin
-		const usr = await new User(this.tripDetails).fetch('slug', this.dbClient);
-		if (!usr[0].is_admin) throw new CustomError('You need to be an admin to create trips.', 'userError', 403);
+  async beforeCreatingTrip() {
+    // make sure this is an admin
+    if (this.tripDetails.is_admin === null || this.tripDetails.is_admin === undefined) {
+			const usr = await new User(this.tripDetails).fetch('slug', this.dbClient);
+			console.log('user =>', usr, usr[0].is_admin);
+      if (!usr[0].is_admin) throw new CustomError('You need to be an admin to create trips.', 'userError', 403);
+    } else if (this.tripDetails.is_admin === false) {
+      throw new CustomError('You need to be an admin to create trips.', 'userError', 403);
+    } else {
+      // todo - make sure a bus exist
 
-		// todo - make sure a bus with that slug exist
+      // todo - check if bus has not been assign to another trip on that same day and time
+    }
+    return true;
+  }
 
-		// todo - check if bus has not been assign to another trip on that same day
+  async create() {
+    this.beforeCreatingTrip();
+    // persit data in database
+    await new Trip(this.dbClient).save(this.tripDetails);
 
-		return true;
-	}
+    return this.afterCreatingTrip();
+  }
 
-	async create() {
-		this.beforeCreatingTrip();
-		// persit data in database
-		await new Trip(this.dbClient).save(this.tripDetails);
-
-		return this.afterCreatingTrip();
-	}
-
-	afterCreatingTrip() {
-		return {
-			tripId: this.tripDetails.slug,
-			busId: this.tripDetails.busSlug,
-			origin: this.tripDetails.origin,
-			destination: this.tripDetails.destination,
-			tripDate: this.tripDetails.tripDate,
-			fare: this.tripDetails.fare,
-			currency: this.tripDetails.currency,
-		};
-	}
+  afterCreatingTrip() {
+    return {
+      trip_id: this.tripDetails.slug,
+      bus_id: this.tripDetails.bus_slug,
+      origin: this.tripDetails.origin,
+      destination: this.tripDetails.destination,
+      trip_date: this.tripDetails.trip_date,
+      fare: this.tripDetails.fare,
+      currency: this.tripDetails.currency,
+    };
+  }
 }
 
 module.exports = CreateTrip;
