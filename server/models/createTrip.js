@@ -4,7 +4,7 @@ const CustomError = require('../errorHandles/wayFarerError.js');
 
 class CreateTrip {
 	constructor(tripDetails, dbClient){
-		this.dbClient = dbclient;
+		this.dbClient = dbClient;
 		this.tripDetails = tripDetails;
 	}
 
@@ -13,9 +13,9 @@ class CreateTrip {
 		const usr = await new User(this.tripDetails).fetch('slug', this.dbClient);
 		if (!usr[0].is_admin) throw new CustomError('You need to be an admin to create trips.', 'userError', 403);
 
-		// make sure a bus with that slug exist
+		// todo - make sure a bus with that slug exist
 
-		// check if bus has not been assign to another trip on that same day
+		// todo - check if bus has not been assign to another trip on that same day
 
 		return true;
 	}

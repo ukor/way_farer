@@ -8,8 +8,8 @@ module.exports = {
 		password: 'testPassword',
 	},
 	adminSignIn: {
-		email: this.adminUser.email,
-		password: this.adminUser.password,
+		email: 'adminUser@gmail.test',
+		password:  'testPassword',
 	},
 	signup: {
 		first_name: `${slug.generate()}`,
