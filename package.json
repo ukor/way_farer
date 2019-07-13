@@ -11,7 +11,9 @@
 		"coverage": "nyc report --reporter=text-lcov | coveralls",
 		"dev": "nodemon ./bin/www/server.js",
 		"document": "aglio -i ./documentation/raw/doc.apib --theme-variables cyborg --theme-template triple -o ./documentation/html/doc.html",
-		"format": "prettier --write '**/*.{js,jsx}'"
+		"format": "prettier --write '**/*.{js,jsx}'",
+		"lint": "eslint ./server",
+		"lint_fix": "eslint ./server --fix"
 	},
 	"keywords": [
 		"Andela",
