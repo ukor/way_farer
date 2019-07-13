@@ -23,7 +23,6 @@ describe('Test Trips Logic ', function () {
 		dbPool = new Pool(dbConfig);
 	});
 
-	after(async function () { });
 	describe(' Test saving trips ', function () {
 		it('Expect return value to be a truthy value', async function () {
 			const trp = new Trip(dbPool).save(dummyTrip);
@@ -37,15 +36,19 @@ describe('Test Trips Logic ', function () {
 		});
 	});
 	describe(' Test fetching trips ', function () {
-		it('Expect return value to be an object', async function () { });
+		it('Expect return value to be an object', async function () {
+			const trp = new Trip(dbPool).fetch('origin', dummyTrip.origin);
+			await expect(trp).to.eventually.be.an('array');
+		});
 
-		it('Expect return value to be an object with id, slug and origin as property', async function () { });
+		// it('Expect return value to be an object with id, slug and origin as property', async function () { });
 
-		it('Expect an error to be thrown ', async function () { });
+		// it('Expect an error to be thrown ', async function () { });
 	});
 	describe(' Test removing trips ', function () {
-		it('Expect return value to be a thruthy value ', function () { });
-
-		it('Expect an error to be thrown ', function () { });
+		it('Expect return value to be a thruthy value ', async function () {
+			const removeTrip = new Trip(dbPool).remove(dummyTrip.slug);
+			await expect(removeTrip).to.eventually.be.a('number');
+		 });
 	});
 });

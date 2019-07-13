@@ -9,7 +9,7 @@ const request = require('supertest')(app);
 describe('Routes Test', function () {
 	describe('POST /v1/auth/signup', function () {
 		it('Expect sign up route to return status code 200', function (done) {
-			request.post('/v1/auth/signup').send(dummyData.signup).expect(200, done);
+			request.post('/v1/auth/signup').send(dummyData.adminUser).expect(200, done);
 		});
 		it('Expect sign up response body to be an object', function (done) {
 			request.post('/v1/auth/signup')
