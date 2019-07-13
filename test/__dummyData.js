@@ -41,7 +41,7 @@ module.exports = {
     fare: 2500,
     created_by: slug.generate(),
     status: 'active',
-    date_created: moment().utc().format(''),
+    date_created: moment().utc().format('YYYY/MM/DD HH:mm:ss'),
 	},
 	busByAdmin: {},
 };
