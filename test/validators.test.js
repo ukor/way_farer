@@ -2,6 +2,8 @@
 /* eslint-disable no-undef */
 require('dotenv').config();
 const chai = require('chai');
+const slug = require('shortid');
+const moment = require('moment');
 
 const { expect } = chai;
 const dummyData = require('./__dummyData.js');
@@ -46,7 +48,19 @@ describe('Middlewares Validators', () => {
 
   describe('Create Trip Validator', () => {
     it('Expect return value to be an object', function () {
-      const v = addTrip(dummyData.trip);
+      const v = addTrip({
+        slug: slug.generate(),
+        bus_id: slug.generate(),
+        bus_slug: slug.generate(),
+        origin: 'Abakaliki',
+        destination: 'Asaba',
+        trip_date: moment().utc().format('YYYY/MM/DD HH:mm:ss'),
+        fare: 2500,
+        created_by: slug.generate(),
+        user_id: slug.generate(),
+        status: 'active',
+        date_created: moment().utc().format('YYYY/MM/DD HH:mm:ss'),
+      });
       console.log(22, v);
       expect(v).to.be.an('object');
       expect(v).to.have.property('origin');
