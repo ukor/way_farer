@@ -5,7 +5,8 @@ const moment = require('moment');
 const CustomError = require('../../errorHandles/wayFarerError.js');
 
 const validateTripDetails = (tripDetails) => {
-  const td = tripDetails;
+	const td = tripDetails;
+	console.log(2, td);
   const constriant = {
     bus_id: {
       presence: true,
