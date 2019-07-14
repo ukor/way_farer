@@ -21,7 +21,7 @@ module.exports = (tripDetails) => {
 
 	return {
 		slug: trim(tripDetails.trip_id),
-		is_admin: trim(tripDetails.is_admin),
+		is_admin: tripDetails.is_admin,
 		user_id: trim(tripDetails.user_id),
 	}
 };

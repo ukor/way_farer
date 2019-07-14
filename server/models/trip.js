@@ -50,13 +50,13 @@ class Trip {
 	}
 
 	async cancel(trip_id) {
-		this.ft = trip_id;
-		this.ud = data;
+		this.trip_id = trip_id;
 
-		const sql = `UPDATE trips SET state = ($1) WHERE slug = ($2)`;
-		const values = ['cancel', trip_id];
+		const sql = `UPDATE trips SET status = ($1) WHERE slug = ($2)`;
+		const values = ['cancel', this.trip_id];
 
-		const query = await this.dbClient(sql, values);
+		const query = await this.dbClient.query(sql, values);
+		console.log('qwerty =>> ', query);
 		return query.rows;
 	}
 

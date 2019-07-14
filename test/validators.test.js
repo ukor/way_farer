@@ -84,8 +84,8 @@ describe('Middlewares Validators', function() {
 	describe('Cancel Trip Validator', function () {
 		const cancelDetails = {
 			token: 'some-jwt-token-token',
-			user_id: 1,
-			trip_id: 2,
+			user_id: '1',
+			trip_id: '2',
 			is_admin: false,
 		}
     it('Expect return value to be an object', function() {

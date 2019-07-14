@@ -44,15 +44,17 @@ router.patch('/', (request, response, next) => {
 		const token = headers.authorization ? headers.authorization : body.token;
 		console.log('token', token);
 
-		const tripDetails = CancelTripValidator(body.trip_id);
+		const tripDetails = CancelTripValidator(body);
 		request.body = tripDetails;
+		next();
 	} catch (exception) {
 		next(exception);
 	}
 }, async (request, response, next) => {
 		try {
 			const { dbClient } = request.app.locals;
-			const resp = new CancelTrip(tripDetails, dbClient).cancel();
+			const { body } = request;
+			const resp = new CancelTrip(body, dbClient).cancel();
 			response.json({
 				status: 'success',
 				data: resp,
