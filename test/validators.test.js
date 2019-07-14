@@ -10,6 +10,7 @@ const dummyData = require('./__dummyData.js');
 const signup = require('../server/middlewares/validators/signup.js');
 const signin = require('../server/middlewares/validators/signin.js');
 const addTrip = require('../server/middlewares/validators/trip.js');
+const cancelTrip = require('../server/middlewares/validators/cancelTrip.js');
 
 describe('Middlewares Validators', function() {
   describe('Signup validator', function() {
@@ -76,6 +77,30 @@ describe('Middlewares Validators', function() {
 
       expect(function() {
         addTrip(dummyData.trip);
+      }).to.throw();
+    });
+	});
+
+	describe('Cancel Trip Validator', function () {
+		const cancelDetails = {
+			token: 'some-jwt-token-token',
+			user_id: 1,
+			trip_id: 2,
+			is_admin: false,
+		}
+    it('Expect return value to be an object', function() {
+      const v = cancelTrip(cancelDetails);
+      expect(v).to.be.an('object');
+      expect(v).to.have.property('slug');
+      expect(v).to.have.property('user_id');
+      expect(v).to.have.property('is_admin');
+    });
+
+    it('Expect error to be thrown', function() {
+      delete cancelDetails.trip_id;
+
+      expect(function() {
+        cancelTrip(cancelDetails);
       }).to.throw();
     });
   });

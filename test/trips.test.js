@@ -46,10 +46,18 @@ describe('Test Trips Logic ', function() {
 
     // it('Expect an error to be thrown ', async function () { });
   });
-  describe(' Test removing trips ', function() {
+	describe(' Test removing trips ', function () {
     it('Expect return value to be a thruthy value ', async function() {
       const removeTrip = new Trip(dbPool).remove(dummyTrip.slug);
       await expect(removeTrip).to.eventually.be.a('number');
     });
-  });
+	});
+
+  describe(' Test canceling trips ', function() {
+    it('Expect return value to be a thruthy value ', async function() {
+			const cancelTrip = new Trip(dbPool).cancel(dummyTrip.slug);
+      await expect(cancelTrip).to.eventually.be.a('number');
+    });
+	});
+
 });

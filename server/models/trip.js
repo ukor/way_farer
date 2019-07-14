@@ -47,11 +47,22 @@ class Trip {
     const query = await this.dbClient.query(sql, values);
 
     return query.rows;
-  }
+	}
 
-  update(filter, data) {
-    this.ft = filter;
-    this.ud = data;
+	async cancel(trip_id) {
+		this.ft = trip_id;
+		this.ud = data;
+
+		const sql = `UPDATE trips SET state = ($1) WHERE slug = ($2)`;
+		const values = ['cancel', trip_id];
+
+		const query = await this.dbClient(sql, values);
+		return query.rows;
+	}
+
+  update(trip_id, data) {
+    this.ft = trip_id;
+		this.ud = data;
   }
 
   async remove(filter) {
