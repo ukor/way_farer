@@ -15,29 +15,29 @@ const { env } = process;
 
 chai.use(chaiThings).use(chaiaspromised);
 
-describe('Test Trips Logic ', function() {
+describe('Test Trips Logic ', function () {
   let dbPool;
   const dummyTrip = trip;
-  before(async function() {
+  before(async function () {
     const dbURI = `postgres://${env.PGuser}:${env.PGpassword}@${env.PGhost}:${env.PGport}/${env.PGdatabaseName}`;
     const dbConfig = pgConnection(dbURI);
     dbPool = new Pool(dbConfig);
   });
 
-  describe(' Test saving trips ', function() {
-    it('Expect return value to be a truthy value', async function() {
+  describe(' Test saving trips ', function () {
+    it('Expect return value to be a truthy value', async function () {
       const trp = new Trip(dbPool).save(dummyTrip);
       await expect(trp).to.eventually.be.a('number');
     });
 
-    it('Expect an error to be thrown', async function() {
+    it('Expect an error to be thrown', async function () {
       delete dummyTrip.slug;
       const trp = new Trip(dbPool).save(dummyTrip);
       await expect(trp).to.eventually.be.rejected;
     });
   });
-  describe(' Test fetching trips ', function() {
-    it('Expect return value to be an object', async function() {
+  describe(' Test fetching trips ', function () {
+    it('Expect return value to be an object', async function () {
       const trp = new Trip(dbPool).fetch('origin', dummyTrip.origin);
       await expect(trp).to.eventually.be.an('array');
     });
@@ -46,18 +46,18 @@ describe('Test Trips Logic ', function() {
 
     // it('Expect an error to be thrown ', async function () { });
   });
-	describe(' Test removing trips ', function () {
-    it('Expect return value to be a thruthy value ', async function() {
+  describe(' Test removing trips ', function () {
+    it('Expect return value to be a thruthy value ', async function () {
       const removeTrip = new Trip(dbPool).remove(dummyTrip.slug);
       await expect(removeTrip).to.eventually.be.a('number');
     });
-	});
+  });
 
-  describe(' Test canceling trips ', function() {
-    it('Expect return value to be a number', async function() {
-			const cancelTrip = new Trip(dbPool).cancel(dummyTrip.slug);
+  describe(' Test canceling trips ', function () {
+    it('Expect return value to be a number', async function () {
+      const cancelTrip = new Trip(dbPool).cancel(dummyTrip.slug);
       await expect(cancelTrip).to.eventually.be.a('number');
     });
-	});
+  });
 
 });

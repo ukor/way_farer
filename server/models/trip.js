@@ -47,22 +47,21 @@ class Trip {
     const query = await this.dbClient.query(sql, values);
 
     return query.rows;
-	}
+  }
 
-	async cancel(trip_id) {
-		this.trip_id = trip_id;
+  async cancel(tripId) {
+    this.trip_id = tripId;
 
-		const sql = `UPDATE trips SET status = ($1) WHERE slug = ($2)`;
-		const values = ['cancel', this.trip_id];
+    const sql = `UPDATE trips SET status = ($1) WHERE slug = ($2)`;
+    const values = ['cancel', this.trip_id];
 
-		const query = await this.dbClient.query(sql, values);
-		console.log('qwerty =>> ', query, query.rowCount, typeof query.rowCount);
-		return query.rowCount;
-	}
+    const query = await this.dbClient.query(sql, values);
+    return query.rowCount;
+  }
 
-  update(trip_id, data) {
-    this.ft = trip_id;
-		this.ud = data;
+  update(tripId, data) {
+    this.ft = tripId;
+    this.ud = data;
   }
 
   async remove(filter) {
