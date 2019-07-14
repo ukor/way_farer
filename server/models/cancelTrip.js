@@ -27,7 +27,7 @@ class CancelTrip {
 
 		return {
 			message: 'Trip cancel succesffuly.',
-		}
+		};
 
 	}
 

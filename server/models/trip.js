@@ -56,8 +56,8 @@ class Trip {
 		const values = ['cancel', this.trip_id];
 
 		const query = await this.dbClient.query(sql, values);
-		console.log('qwerty =>> ', query);
-		return query.rows;
+		console.log('qwerty =>> ', query, query.rowCount, typeof query.rowCount);
+		return query.rowCount;
 	}
 
   update(trip_id, data) {
