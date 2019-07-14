@@ -101,5 +101,17 @@ describe('Routes Test', function() {
         })
         .expect(200, done);
     });
-  });
+	});
+
+	describe('Test UPDATING trips /v1/trips', function (done) {
+		const cancelDetails = {
+			token: 'some-jwt-token-token',
+			user_id: '1',
+			trip_id: '2',
+			is_admin: true,
+		}
+		it('Expect PATCH /v1/trips to return staus code 200', function (done) {
+			request.patch('/v1/trips').send({}).expect(200, done);
+		});
+	});
 });

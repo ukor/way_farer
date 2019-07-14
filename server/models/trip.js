@@ -49,8 +49,18 @@ class Trip {
     return query.rows;
   }
 
-  update(filter, data) {
-    this.ft = filter;
+  async cancel(tripId) {
+    this.trip_id = tripId;
+
+    const sql = `UPDATE trips SET status = ($1) WHERE slug = ($2)`;
+    const values = ['cancel', this.trip_id];
+
+    const query = await this.dbClient.query(sql, values);
+    return query.rowCount;
+  }
+
+  update(tripId, data) {
+    this.ft = tripId;
     this.ud = data;
   }
 
