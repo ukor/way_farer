@@ -3,8 +3,8 @@ const addTripValidator = require('../middlewares/validators/trip.js');
 const CreateTrip = require('../models/createTrip.js');
 const CancelTripValidator = require('../middlewares/validators/cancelTrip.js');
 const CancelTrip = require('../models/cancelTrip.js');
-
 const verifyToken = require('../models/tokenPaser.js');
+const GetTrips = require('../models/getTrips.js');
 
 router.post(
   '/',
@@ -37,6 +37,21 @@ router.post(
     }
   },
 );
+
+
+router.get('/', async (request, response, next) => {
+  try {
+    // fetch trips
+    const { dbClient } = request.app.locals;
+    const trips = await new GetTrips(dbClient).all();
+    response.json({
+      status: 'success',
+      data: trips,
+    });
+  } catch (exception) {
+    next(exception);
+  }
+});
 
 router.patch('/', async (request, response, next) => {
   try {

@@ -58,6 +58,13 @@ describe('Test Trips Logic ', function () {
       const cancelTrip = new Trip(dbPool).cancel(dummyTrip.slug);
       await expect(cancelTrip).to.eventually.be.a('number');
     });
+	});
+
+  describe(' Test Fetching trips with id ', function () {
+    it('Expect return value to be a number', async function () {
+      const cancelTrip = new Trip(dbPool).cancel(dummyTrip.slug);
+      await expect(cancelTrip).to.eventually.be.a('number');
+    });
   });
 
 });
