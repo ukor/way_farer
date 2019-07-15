@@ -68,9 +68,9 @@ class SignIn {
         userId: authenticate.slug,
         date: new Date(),
       },
-      process.env.jwtSecret,
+      Buffer.from(process.env.jwtSecret, 'base64'),
       {
-        expiresIn: '365 days', // should be 12h, 365 days for testing
+        expiresIn: '24h', // should be 12h, 365 days for testing
         audience: `${authenticate.first_name} ${authenticate.last_name}`,
         issuer: appConfig.name,
       },
