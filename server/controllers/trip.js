@@ -3,15 +3,16 @@ const addTripValidator = require('../middlewares/validators/trip.js');
 const CreateTrip = require('../models/createTrip.js');
 const CancelTripValidator = require('../middlewares/validators/cancelTrip.js');
 const CancelTrip = require('../models/cancelTrip.js');
+
+const verifyToken = require('../models/tokenPaser.js');
+
 router.post(
   '/',
   async (request, response, next) => {
     try {
-      const { headers, body } = request;
-      // check for token
-      const token = headers.authorization ? headers.authorization : body.token;
-      console.log('token', token);
-      // todo - parse token and check
+      const { body } = request;
+      // parse token and check
+      verifyToken(request);
 
       // validate request body
       const tripDetails = addTripValidator(body);
@@ -38,30 +39,29 @@ router.post(
 );
 
 router.patch('/', (request, response, next) => {
-	try {
-		const { headers, body } = request;
-		// check for token
-		const token = headers.authorization ? headers.authorization : body.token;
-		console.log('token', token);
+  try {
+    const { body } = request;
+    // parse token and check
+    verifyToken(request);
 
-		const tripDetails = CancelTripValidator(body);
-		request.body = tripDetails;
-		next();
-	} catch (exception) {
-		next(exception);
-	}
+    const tripDetails = CancelTripValidator(body);
+    request.body = tripDetails;
+    next();
+  } catch (exception) {
+    next(exception);
+  }
 }, async (request, response, next) => {
-		try {
-			const { dbClient } = request.app.locals;
-			const { body } = request;
-			const resp = new CancelTrip(body, dbClient).cancel();
-			response.json({
-				status: 'success',
-				data: resp,
-			});
-		} catch (exception) {
-			next(exception);
-		}
+  try {
+    const { dbClient } = request.app.locals;
+    const { body } = request;
+    const resp = new CancelTrip(body, dbClient).cancel();
+    response.json({
+      status: 'success',
+      data: resp,
+    });
+  } catch (exception) {
+    next(exception);
+  }
 });
 
 module.exports = router;
