@@ -50,10 +50,11 @@ app.use((error, req, res, next) => {
   if (env.NODE_ENV !== 'production') {
     console.log('Error => ', error);
   }
-  res.json({
+  const statusCode = error.code ? error.code : 500;
+  res.status(statusCode).json({
     status: 'error',
     error: error.message,
-    code: error.code,
+    code: statusCode,
   });
 });
 
