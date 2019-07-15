@@ -59,5 +59,4 @@ describe('Test Trips Logic ', function () {
       await expect(cancelTrip).to.eventually.be.a('number');
     });
   });
-
 });

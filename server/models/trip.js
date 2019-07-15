@@ -29,17 +29,18 @@ class Trip {
     this.ft = filterType;
     if (this.ft === 'origin') {
       return `SELECT * FROM trips WHERE origin = $1`;
-    }
-    if (this.ft === 'destination') {
+    } else if (this.ft === 'destination') {
       return `SELECT * FROM users WHERE destination = $1`;
     } else if (this.ft === 'id') {
       return `SELECT * FROM trips WHERE slug = $1`;
+    } else if (this.ft === 'all') {
+      return `SELECT * FROM trips WHERE status = $1`;
     } else {
       return `SELECT * FROM trips WHERE bus_slug = $1`;
     }
   }
 
-  async fetch(filterType = 'origin' || 'destination' || 'id' || 'bus', filter) {
+  async fetch(filterType = 'origin' || 'destination' || 'id' || 'bus' || 'slug' || 'all', filter) {
     this.filter = filter;
     const sql = this.beforeFetch(filterType);
     const values = [filter];
