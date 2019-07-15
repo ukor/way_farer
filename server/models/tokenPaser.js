@@ -28,7 +28,7 @@ function getToken(request) {
  *  */
 async function verifyToken(request) {
   const token = getToken(request);
-  const verificationToken = await jwt.verify(token, process.env.jwtSecret);
+  const verificationToken = await jwt.verify(token, Buffer.from(process.env.jwtSecret, 'base64'));
   if (!verificationToken) throw new CustomError('403 - Forbidden, Unauthorized', 'userError', 403);
 
   return true;
