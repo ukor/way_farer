@@ -48,7 +48,7 @@ class Signup {
       },
       process.env.jwtSecret,
       {
-        expiresIn: '12h',
+        expiresIn: '365 days', // should be 12h, 365 days for testing
         audience: 'user',
         issuer: appConfig.name,
       },

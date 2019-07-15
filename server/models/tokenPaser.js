@@ -17,6 +17,7 @@ function getToken(request) {
     // return authorization token
     return bearer[1];
   }
+  if (!body.token) throw new CustomError('Pass a valid authorization token.', 'userError', 403);
   return body.token;
 }
 

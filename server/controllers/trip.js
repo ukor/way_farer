@@ -10,9 +10,9 @@ router.post(
   '/',
   async (request, response, next) => {
     try {
+			// parse token and check
       const { body } = request;
-      // parse token and check
-      verifyToken(request);
+      await verifyToken(request);
 
       // validate request body
       const tripDetails = addTripValidator(body);
@@ -38,11 +38,11 @@ router.post(
   },
 );
 
-router.patch('/', (request, response, next) => {
+router.patch('/', async (request, response, next) => {
   try {
     const { body } = request;
     // parse token and check
-    verifyToken(request);
+    await verifyToken(request);
 
     const tripDetails = CancelTripValidator(body);
     request.body = tripDetails;
