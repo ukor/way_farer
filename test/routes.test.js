@@ -66,7 +66,7 @@ describe('Routes Test', function () {
           expect(response.body).to.be.have.property('error');
           expect(response.body).to.be.have.property('code', 400);
         })
-        .expect(200, done);
+        .expect(400, done);
     });
   });
 

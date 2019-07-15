@@ -10,7 +10,7 @@ router.post(
   '/',
   async (request, response, next) => {
     try {
-			// parse token and check
+      // parse token and check
       const { body } = request;
       await verifyToken(request);
 
