@@ -68,7 +68,10 @@ const remove = (bookingsDetails) => {
 
   if (errors) throw new CustomError(errors, 'userError', 400);
 
-  return {};
+	return {
+		slug: bookingsDetails.booking_id,
+		user_id: bookingsDetails.user_id,
+	};
 };
 
 module.exports = { save, remove, fetch };
