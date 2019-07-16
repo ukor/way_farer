@@ -3,7 +3,7 @@
 		"node": "10.15.3"
 	},
 	"name": "way_farer",
-	"version": "0.3.2",
+	"version": "0.4.2",
 	"description": "Bus transportation booking server",
 	"main": "app.js",
 	"scripts": {
