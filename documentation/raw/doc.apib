@@ -111,3 +111,23 @@ Token can be pass with the Authorization header or with the request; When both a
                 currency: 'NGN'
             }
         }
+### Fetch Trip [GET]
+Allows Admin and user to view all trip
+
++ Request (application/json)
+		+ Headers
+				Authorization: token
+
+
+# Group Bookings
+## Trips Collection [/v1/bookings]
+### Create Bookings [POST]
+User can create bookings.
+
++ Request (application/json)
+		+ Attributes
+				+ token: jwttoken (string)
+        + user_id: someUserId (string, required)
+        + is_admin: true (boolean)
+        + trip_id: someBusId (string, required)
+				+ seat_number: (number)
