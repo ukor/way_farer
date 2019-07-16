@@ -66,14 +66,14 @@ router.get('/', (request, response, next) => {
     next(exception);
   }
 });
+
 router.delete('/:bookingId', (request, response, next) => {
   try {
+    tokenValidator(request);
     const { params, body } = request;
     body.booking_id = params.bookingId;
 
     const bookingDetails = validator.remove(body);
-
-    console.log(bookingDetails);
     request.body = bookingDetails;
     next();
   } catch (exception) {
@@ -82,9 +82,13 @@ router.delete('/:bookingId', (request, response, next) => {
 }, async (request, response, next) => {
   try {
     const { body } = request;
-    console.log(body);
+    const { dbClient } = request.app.locals;
+    await new Bookings(dbClient).deleteBookings(body);
     response.json({
       status: 'success',
+      data: {
+        message: 'Bookings deleted successfully',
+      },
     });
   } catch (exception) {
     next(exception);

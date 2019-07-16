@@ -70,7 +70,7 @@ const remove = (bookingsDetails) => {
 
 	return {
 		slug: bookingsDetails.booking_id,
-		user_id: bookingsDetails.user_slug,
+		user_id: bookingsDetails.user_id,
 	};
 };
 
