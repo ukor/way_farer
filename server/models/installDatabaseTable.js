@@ -64,10 +64,11 @@ class InstallDatabaseTables {
   async _bookingTable(dbClient) {
     const bookinTable = `
 			CREATE TABLE IF NOT EXISTS bookings(
-				id SERIAL PRIMARY KEY,
+				id SERIAL8 PRIMARY KEY,
 				slug CHAR(32) NOT NULL,
 				user_slug CHAR(32) NOT NULL,
 				trip_slug CHAR(32) NOT NULL,
+				seat_number int8 NOT NULL,
 				created_on TIMESTAMP NOT NULL
 			);
 		`;
