@@ -28,7 +28,7 @@ class Booking {
   }
 
   async adminFetch() {
-    const sql = 'SELECT * FROM bookings WHERE user_slug > 0';
+    const sql = 'SELECT * FROM bookings WHERE id > 0';
 
     const query = await this.dbClient.query(sql);
 
