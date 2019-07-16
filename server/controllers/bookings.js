@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { isEmpty } = require('lodash');
 const validator = require('../middlewares/validators/booking.js');
 const tokenValidator = require('../models/tokenPaser.js');
 const Bookings = require('../models/bookings.js');
@@ -31,9 +32,40 @@ router.post('/', (request, response, next) => {
   } catch (exception) {
     next(exception);
   }
-	});
+});
 
-router.get('/', (request, response, next) => { }, async (request, response, next) => { });
+router.get('/', (request, response, next) => {
+  try {
+    const { params, query } = request;
+    const bookingDetails = isEmpty(params) ? query : params;
+    const v = validator.fetch(bookingDetails);
+
+    request.body = v;
+    next();
+  } catch (exception) {
+    next(exception);
+  }
+}, async (request, response, next) => {
+  try {
+    const { body } = request;
+    const { dbClient } = request.app.locals;
+    if (body.is_admin) {
+      const bookins = await new Bookings(dbClient).adminFetch();
+      response.json({
+        status: 'success',
+        data: bookins,
+      });
+    } else {
+      const bookins = await new Bookings(dbClient).userFetch(body.user_id);
+      response.json({
+        status: 'success2',
+        data: bookins,
+      });
+    }
+  } catch (exception) {
+    next(exception);
+  }
+});
 router.delete('/', (request, response, next) => { }, async (request, response, next) => { });
 
 module.exports = router;

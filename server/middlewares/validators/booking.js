@@ -44,7 +44,7 @@ const fetch = (bookingsDetails) => {
 
   return {
     user_slug: bookingsDetails.user_id,
-    is_admin: bookingsDetails.is_admin,
+    is_admin: bookingsDetails.is_admin === 'true',
   };
 };
 
