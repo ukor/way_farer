@@ -33,7 +33,21 @@ class Booking {
     const query = await this.dbClient.query(sql);
 
     return query.rows;
-  }
+	}
+
+	async deleteBookings(bookingDetails) {
+		const sql = `DELETE FROM bookings WHERE slug = $1 AND user_slug = $2`;
+
+		const values = [
+			bookingDetails.slug,
+			bookingDetails.user_id,
+		];
+
+		const query = await this.dbClient.query(sql, values);
+
+		return query.rows;
+	}
+
 }
 
 module.exports = Booking;

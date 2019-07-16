@@ -56,7 +56,7 @@ router.get('/', (request, response, next) => {
         data: bookins,
       });
     } else {
-      const bookins = await new Bookings(dbClient).userFetch(body.user_id);
+      const bookins = await new Bookings(dbClient).userFetch(body.user_slug);
       response.json({
         status: 'success2',
         data: bookins,
@@ -66,6 +66,29 @@ router.get('/', (request, response, next) => {
     next(exception);
   }
 });
-router.delete('/', (request, response, next) => { }, async (request, response, next) => { });
+router.delete('/:bookingId', (request, response, next) => {
+  try {
+    const { params, body } = request;
+    body.booking_id = params.bookingId;
+
+    const bookingDetails = validator.remove(body);
+
+    console.log(bookingDetails);
+    request.body = bookingDetails;
+    next();
+  } catch (exception) {
+    next(exception);
+  }
+}, async (request, response, next) => {
+  try {
+    const { body } = request;
+    console.log(body);
+    response.json({
+      status: 'success',
+    });
+  } catch (exception) {
+    next(exception);
+  }
+});
 
 module.exports = router;
