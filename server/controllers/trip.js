@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { isEmpty } = require('lodash');
 const addTripValidator = require('../middlewares/validators/trip.js');
 const CreateTrip = require('../models/createTrip.js');
 const CancelTripValidator = require('../middlewares/validators/cancelTrip.js');
@@ -53,8 +54,11 @@ router.get('/', async (request, response, next) => {
   }
 });
 
-router.patch('/', async (request, response, next) => {
+router.patch('/:trip_id', async (request, response, next) => {
   try {
+    const { params, query } = request;
+    const tid = isEmpty(params) ? query : params;
+    request.body.trip_id = tid.trip_id;
     const { body } = request;
     // parse token and check
     await verifyToken(request);

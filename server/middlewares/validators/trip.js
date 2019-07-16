@@ -28,7 +28,6 @@ const validateTripDetails = (tripDetails) => {
       type: 'number',
     },
     user_id: {
-      presence: true,
       type: 'string',
     },
   };

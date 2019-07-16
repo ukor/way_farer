@@ -30,17 +30,17 @@ const save = (bookingsDetails) => {
 };
 
 const fetch = (bookingsDetails) => {
-  const constraint = {
-    is_admin: {
-      presence: true,
-    },
-    user_id: {
-      presence: true,
-    },
-  };
+  // const constraint = {
+  //   is_admin: {
+  //     presence: true,
+  //   },
+  //   user_id: {
+  //     presence: true,
+  //   },
+  // };
 
-  const errors = validate(bookingsDetails, constraint, { format: 'flat' });
-  if (errors) throw new CustomError(errors, 'userError', 400);
+  // const errors = validate(bookingsDetails, constraint, { format: 'flat' });
+  // if (errors) throw new CustomError(errors, 'userError', 400);
 
   return {
     user_slug: bookingsDetails.user_id,
